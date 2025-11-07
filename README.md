@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-# 🛒 Vibe Commerce - Full Stack E-Commerce Cart
-=======
-# 🛒 Full Stack E-Commerce Cart
->>>>>>> ca0e257ef400f2a4a36877ae584be61f56ef0241
 
-This project is my submission for the **Vibe Commerce Internship Full-Stack Coding Assignment**.  
+# 🛒 Vibe Commerce - Full Stack E-Commerce Cart
 It’s a complete mock shopping cart app demonstrating **frontend + backend integration**, **database persistence**, and **checkout flow**.
 
 ---
@@ -131,7 +126,16 @@ curl -X POST http://localhost:5000/api/checkout \
   -H "Content-Type: application/json" \
   -d '{"cartItems": [{"productId": 3, "qty": 2}]}'
 ```
-=======
+## 📸 Screenshots
 
+| Login | Register |
+|-------|-----------|
+| ![Login Screenshot](./frontend/screenshots/Login.png) | ![Register Screenshot](./frontend/screenshots/Register.png) 
 
->>>>>>> ca0e257ef400f2a4a36877ae584be61f56ef0241
+| Products | Cart |
+|--------------|------|
+| ![Product Grid](./frontend/screenshots/Products.png) | ![Cart Page](./frontend/screenshots/Cart.png) |
+
+| Checkout 
+|--------------|------|
+| ![Checkout Page](./frontend/screenshots/Checkout.png) |
