@@ -132,10 +132,10 @@ curl -X POST http://localhost:5000/api/checkout \
 |-------|-----------|
 | ![Login Screenshot](./frontend/screenshots/Login.png) | ![Register Screenshot](./frontend/screenshots/Register.png) 
 
-| Products | Cart |
+| Products | Added To cart |
 |--------------|------|
-| ![Product Grid](./frontend/screenshots/Products.png) | ![Cart Page](./frontend/screenshots/Cart.png) |
+| ![Product Grid](./frontend/screenshots/Products.png) | ![Added_cart Page](./frontend/screenshots/Added_to_Cart.png) |
 
-| Checkout 
+| Checkout | Cart |
 |--------------|------|
-| ![Checkout Page](./frontend/screenshots/Checkout.png) |
+| ![Product Grid](./frontend/screenshots/Checkout.png) | ![Cart Page](./frontend/screenshots/Cart.png) |
