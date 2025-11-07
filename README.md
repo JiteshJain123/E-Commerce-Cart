@@ -131,7 +131,3 @@ curl -X POST http://localhost:5000/api/checkout \
   -H "Content-Type: application/json" \
   -d '{"cartItems": [{"productId": 3, "qty": 2}]}'
 ```
-=======
-
-
->>>>>>> ca0e257ef400f2a4a36877ae584be61f56ef0241
