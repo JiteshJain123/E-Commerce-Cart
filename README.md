@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 🛒 Vibe Commerce - Full Stack E-Commerce Cart
+=======
+# 🛒 Full Stack E-Commerce Cart
+>>>>>>> ca0e257ef400f2a4a36877ae584be61f56ef0241
 
 This project is my submission for the **Vibe Commerce Internship Full-Stack Coding Assignment**.  
 It’s a complete mock shopping cart app demonstrating **frontend + backend integration**, **database persistence**, and **checkout flow**.
@@ -82,6 +86,7 @@ VITE_API_URL=http://localhost:5000/api
 
 # Run the frontend (Vite dev server)
 npm run dev
+<<<<<<< HEAD
 ```
 ---
 
@@ -126,3 +131,7 @@ curl -X POST http://localhost:5000/api/checkout \
   -H "Content-Type: application/json" \
   -d '{"cartItems": [{"productId": 3, "qty": 2}]}'
 ```
+=======
+
+
+>>>>>>> ca0e257ef400f2a4a36877ae584be61f56ef0241
