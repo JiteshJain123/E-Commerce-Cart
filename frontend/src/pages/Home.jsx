@@ -10,16 +10,30 @@ export default function Home(){
   useEffect(() => {
     API.get("/products")
       .then(r => setProducts(r.data || []))
-      .catch(e => { console.error(e); toast.error("Failed to load products"); });
+      .catch(e => {
+        console.error("Failed to load products:", e);
+        toast.error("Failed to load products");
+      });
   }, []);
 
   const handleAdd = async (product) => {
+    if (!product || (product.id === undefined || product.id === null)) {
+      toast.error("Invalid product");
+      console.error("Invalid product passed to handleAdd:", product);
+      return;
+    }
+
+    const payload = { productId: Number(product.id), qty: 1 };
+    console.log("Add to cart payload:", payload);
+
     try {
-      await API.post("/cart", { product_id: product.id, qty: 1 });
+      const res = await API.post("/cart", payload);
+      console.log("Add to cart response:", res.data);
       toast.success("Added to cart");
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to add to cart");
+      console.error("Add to cart error:", err);
+      const serverMsg = err?.response?.data?.error || err.message || "Failed to add to cart";
+      toast.error(serverMsg);
     }
   };
 

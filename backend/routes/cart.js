@@ -12,7 +12,9 @@ const router = express.Router();
 function getOrCreateCartForUser(userId) {
   let cart = db.prepare("SELECT id FROM carts WHERE user_id = ?").get(userId);
   if (!cart) {
-    const info = db.prepare("INSERT INTO carts (user_id) VALUES (?)").run(userId);
+    const info = db
+      .prepare("INSERT INTO carts (user_id) VALUES (?)")
+      .run(userId);
     return { id: info.lastInsertRowid };
   }
   return cart;
@@ -44,33 +46,56 @@ router.get("/", (req, res) => {
   } else {
     return res.status(400).json({ error: "Login to access cart in this demo" });
   }
-  const items = db.prepare(`
+  const items = db
+    .prepare(
+      `
     SELECT ci.id as id, p.id as productId, p.name, p.price, ci.qty, ci.price_at_time
     FROM cart_items ci
     JOIN products p ON ci.product_id = p.id
     WHERE ci.cart_id = ?
-  `).all(cartId);
+  `
+    )
+    .all(cartId);
   let total = 0;
-  items.forEach(i => total += i.qty * i.price);
+  items.forEach((i) => (total += i.qty * i.price));
   res.json({ items, total, cartId });
 });
 
 /* POST /api/cart - add { productId, qty } - requires auth for this demo */
 router.post("/", (req, res) => {
+  // line near top of handler
+  console.log(
+    "POST /api/cart body:",
+    req.body,
+    "auth:",
+    !!req.headers.authorization
+  );
   const user = req.user;
   if (!user) return res.status(401).json({ error: "Login required" });
   const { productId, qty } = req.body;
-  if (!productId || !qty) return res.status(400).json({ error: "Missing product or qty" });
+  if (!productId || !qty)
+    return res.status(400).json({ error: "Missing product or qty" });
 
   const cart = getOrCreateCartForUser(user.id);
   // Check existing item
-  const existing = db.prepare("SELECT id, qty FROM cart_items WHERE cart_id = ? AND product_id = ?").get(cart.id, productId);
+  const existing = db
+    .prepare(
+      "SELECT id, qty FROM cart_items WHERE cart_id = ? AND product_id = ?"
+    )
+    .get(cart.id, productId);
   if (existing) {
     const newQty = existing.qty + qty;
-    db.prepare("UPDATE cart_items SET qty = ? WHERE id = ?").run(newQty, existing.id);
+    db.prepare("UPDATE cart_items SET qty = ? WHERE id = ?").run(
+      newQty,
+      existing.id
+    );
   } else {
-    const price = db.prepare("SELECT price FROM products WHERE id = ?").get(productId)?.price || 0;
-    db.prepare("INSERT INTO cart_items (cart_id, product_id, qty, price_at_time) VALUES (?, ?, ?, ?)").run(cart.id, productId, qty, price);
+    const price =
+      db.prepare("SELECT price FROM products WHERE id = ?").get(productId)
+        ?.price || 0;
+    db.prepare(
+      "INSERT INTO cart_items (cart_id, product_id, qty, price_at_time) VALUES (?, ?, ?, ?)"
+    ).run(cart.id, productId, qty, price);
   }
   res.json({ ok: true });
 });
